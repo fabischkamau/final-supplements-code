@@ -45,13 +45,17 @@ export async function action({ request }: ActionFunctionArgs) {
   if (typeof question !== "string") {
     return json({ error: "Invalid question" }, { status: 401 });
   }
-  return await call(question, sessionId)
-    .then((answer) => {
-      return redirect(`/chat/${sessionId}`);
-    })
-    .catch((error) => {
-      return json({ error: error }, { status: 401 });
-    });
+  let answer = null;
+  try {
+    answer = await call(question, sessionId);
+  } catch (error) {
+    return json({ error: error });
+  }
+
+  if (typeof answer.generation === "string") {
+    return redirect(`/chat/${sessionId}`);
+  }
+  return {};
 }
 export const meta: MetaFunction = () => {
   return [
