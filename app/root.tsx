@@ -11,6 +11,7 @@ import { LoaderFunctionArgs } from "@remix-run/node";
 import { getThemeSession } from "./utils/themesession.server";
 import { useEffect } from "react";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { SpeedInsights } from '@vercel/speed-insights/remix';
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const session = await getThemeSession(request.headers.get("Cookie"));
@@ -46,6 +47,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         </head>
         <body className=" relative antialiased  text-gray-800 dark:text-gray-200 bg-[#fefefd] dark:bg-black h-dvh md:h-lvh w-full overflow-x-hidden">
           {children}
+          <SpeedInsights />
           <ScrollRestoration />
           <Scripts />
         </body>
