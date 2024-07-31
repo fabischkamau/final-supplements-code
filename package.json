@@ -8,7 +8,6 @@
     "dev": "remix vite:dev",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
     "start": "remix-serve ./build/server/index.js",
-    "test": "cross-env DOTENV_CONFIG_PATH=./.env jest",
     "typecheck": "tsc"
   },
   "dependencies": {
