@@ -9,7 +9,6 @@ type User = {
 };
 
 export default function Header({ user }: { user?: User }) {
-  console.log(user);
   return (
     <header className="flex sticky top-0 justify-between items-center p-3 w-full z-20 bg-white/80 backdrop-blur-md dark:bg-black/80 dark:backdrop-blur-md">
       <div>
