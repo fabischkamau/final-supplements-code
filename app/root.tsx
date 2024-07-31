@@ -19,7 +19,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   return {
     theme: theme,
-    clientId: process.env.GOOGLE_AUTH_CLIENT_ID || "",
   };
 }
 
