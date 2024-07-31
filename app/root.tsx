@@ -11,7 +11,7 @@ import { LoaderFunctionArgs } from "@remix-run/node";
 import { getThemeSession } from "./utils/themesession.server";
 import { useEffect } from "react";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import { SpeedInsights } from '@vercel/speed-insights/remix';
+import { SpeedInsights } from "@vercel/speed-insights/remix";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const session = await getThemeSession(request.headers.get("Cookie"));
@@ -37,7 +37,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
     }
   }, [loaderData]);
   return (
-    <GoogleOAuthProvider clientId={loaderData.clientId}>
+    <GoogleOAuthProvider clientId="900174728297-b3asta45ta4h7vbvlpd9dqdkjvubuule.apps.googleusercontent.com">
       <html lang="en">
         <head>
           <meta charSet="utf-8" />
