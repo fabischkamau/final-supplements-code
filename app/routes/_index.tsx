@@ -78,13 +78,13 @@ export default function Index() {
       }}
       messageHistory={loaderData.messageHistory}
     >
-      <div className="mt-5 px-10 md:px-40"></div>
+      <div className="mt-5 px-5 md:px-40"></div>
       {isSubmitting ? (
         <section className="w-full px-10 md:px-40">
           <LoadingSkeleton title={question as string} />
         </section>
       ) : (
-        <section id="hero" className="w-full px-10 md:px-40 mt-20 ">
+        <section id="hero" className="w-full px-5 md:px-40 mt-20 ">
           <div className="w-full flex flex-col justify-center space-y-4">
             <div className="text-center">
               <h1 className="text-3xl font-semibold text-gray-800 dark:text-gray-100">

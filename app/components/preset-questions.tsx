@@ -13,17 +13,17 @@ export default function PresetQuestions() {
       {questions.map((question, index) => (
         <Form
           method="post"
-          className="w-full px-20 flex items-center justify-center"
+          className="w-full  md:px-20 flex items-center justify-center"
           key={index}
         >
           <button
             type="submit"
             value={question}
             name="question"
-            className="inline-flex space-x-1 w-full hover:underline font-medium"
+            className="inline-flex space-x-1 w-full hover:underline font-medium "
           >
             <SkipForward className="size-5 stroke-green-800 dark:stroke-green-600" />
-            <span>{question}</span>
+            <span className="line-clamp-1">{question}</span>
           </button>
         </Form>
       ))}

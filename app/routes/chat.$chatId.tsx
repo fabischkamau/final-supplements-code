@@ -79,7 +79,7 @@ export default function chat() {
   const question = navigation.formData?.get("question");
   useEffect(() => {
     setChatmesssages(loaderData.chatmesssages);
-  }, [loaderData.chatmesssages, chatmesssages]);
+  }, [loaderData, chatmesssages, isSubmitting]);
   return (
     <HomeLayout
       userId={loaderData.userId}
@@ -89,7 +89,7 @@ export default function chat() {
       }}
       messageHistory={loaderData.messageHistory}
     >
-      <div className="w-full px-20 md:px-40">
+      <div className="w-full px-5 md:px-40">
         <section id="messages" className="w-full">
           {chatmesssages?.map((message: any, index: any) => (
             <Accordion

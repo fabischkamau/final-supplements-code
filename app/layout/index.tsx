@@ -20,7 +20,7 @@ export default function HomeLayout({
   return (
     <main className="relative w-full">
       <Header user={user} />
-      <div className="mx-40">
+      <div className="mx-5 md:mx-40">
         {userId && user && messageHistory && (
           <HistorySheet messageHistory={messageHistory} />
         )}
