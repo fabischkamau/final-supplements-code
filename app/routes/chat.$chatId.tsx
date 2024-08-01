@@ -79,7 +79,7 @@ export default function chat() {
   const question = navigation.formData?.get("question");
   useEffect(() => {
     setChatmesssages(loaderData.chatmesssages);
-  }, [loaderData, chatmesssages, isSubmitting]);
+  }, [loaderData.chatmesssages, chatmesssages, isSubmitting]);
   return (
     <HomeLayout
       userId={loaderData.userId}

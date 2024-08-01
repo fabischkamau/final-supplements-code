@@ -8,6 +8,7 @@
     "dev": "remix vite:dev",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
     "start": "remix-serve ./build/server/index.js",
+    "test": "cross-env DOTENV_CONFIG_PATH=./.env jest",
     "typecheck": "tsc"
   },
   "dependencies": {
@@ -24,6 +25,7 @@
     "@vercel/speed-insights": "^1.0.12",
     "axios": "^1.7.2",
     "cross-env": "^7.0.3",
+    "dotenv": "^16.4.5",
     "isbot": "^4.1.0",
     "katex": "^0.16.11",
     "langchain": "^0.2.12",

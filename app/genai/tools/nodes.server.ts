@@ -6,6 +6,7 @@ import { llm } from "../llm.server";
 import { ChatPromptTemplate } from "@langchain/core/prompts";
 import { JsonOutputToolsParser } from "langchain/output_parsers";
 import { saveHistory } from "./history.server";
+import { initCypherQAChain } from "./cypher.server";
 // Data model (create via a LangChain tool)
 const zodScore = z.object({
   binaryScore: z.enum(["yes", "no"]).describe("Relevance score 'yes' or 'no'"),
@@ -23,25 +24,25 @@ export const gradeTool = new Grade();
 
 export async function cypher(state: GraphState) {
   console.log("---CYPHER RETRIEVER---");
-  console.log(state);
-  const documents = (await initRetrievalChain()).invoke({
-    message: state.question,
+
+  const documents = (await initCypherQAChain()).invoke({
+    query: state.question,
   });
-  console.log("---CYPHER DOCUMENTS---");
+  const { result, context } = await documents;
+  console.log("--- CYPHER CONTEXT---");
   console.log(await documents);
   return {
-    documents: documents,
+    documents: result,
     tools: "cypher",
   };
 }
 export async function vector(state: GraphState) {
   console.log("---VECTOR RETRIEVER---");
-  console.log(state);
+
   const documents = (await initRetrievalChain()).invoke({
     message: state.question,
   });
-  console.log("---VECTOR DOCUMENTS---");
-  console.log(await documents);
+
   return {
     documents: documents,
     tools: "vector",
@@ -65,6 +66,7 @@ export async function generate(state: GraphState) {
  */
 export async function gradeDocuments(state: GraphState) {
   console.log("---CHECK RELEVANCE DOCUMENTS---");
+  console.log(state);
 
   const parser = new JsonOutputToolsParser();
 

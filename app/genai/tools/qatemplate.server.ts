@@ -2,7 +2,7 @@ import { PromptTemplate } from "@langchain/core/prompts";
 
 const template = `
 
-## Here are some supplements for you: *Edit this part to suit the user question*
+## *Edit this part to in relevance to the user question to something like here are supplements that contain ...* 
 
 ### HMB for Lean Muscle Support - 1,000 MG (90 Tablets)
 
@@ -54,13 +54,16 @@ const qaTemplate = `You are an assistant for question-answering recommending Nut
     If you don't know the answer, just say that you don't know.\n
     If context is empty, just say that you don't know the answer.\n
     Do not use your pre-trained knowledge to answer.Do not fall back to your pre-trained knowledge to answer. \n
-    Always list atleast three to five products or supplements from the information.\n
+    Always Respond with atleast three to five products or supplements from the information.\n
     Pick random products or supplements from the information and return them in the format below.\n
     Avoid listing products with very close or similar names.
     You are to format your answer based on the template provided.
       * Add extra information from the context to the template to make it more informative.
       * Avoid Items with very similar names.
       * List the necessary ingredients for the product.
+      * Respond with information containing of atleast 3 - 5 products.
+      * Add all images in the context to the template
+      * Edit the template in relevance to the user question with data fromthe context
 
     Template:
     ${template}

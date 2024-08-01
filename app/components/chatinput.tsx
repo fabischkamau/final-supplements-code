@@ -9,12 +9,13 @@ export default function ChatInput() {
   const submitRef = useRef<HTMLButtonElement>(null);
   useAutosizeTextArea(textAreaRef.current, question);
   const navigation = useNavigation();
+  const isSubmitting = navigation.state === "submitting";
 
   useEffect(() => {
-    if (navigation.state === "submitting") {
+    if (isSubmitting) {
       setQuestion("");
     }
-  }, [setQuestion]);
+  }, [setQuestion, isSubmitting]);
   return (
     <Form method="post" className="w-full md:px-20">
       <div className="relative w-full  ">
