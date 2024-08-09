@@ -3,7 +3,7 @@ import { questionsAndAnswers } from "~/components/qa";
 import Accordion from "~/components/ui/Accordion";
 import ChatInput from "~/components/chatinput";
 import HistorySheet from "~/components/sheet";
-import { useLoaderData, useNavigation } from "@remix-run/react";
+import { useActionData, useLoaderData, useNavigation } from "@remix-run/react";
 import LoadingSkeleton from "~/components/loading-skeleton";
 import {
   ActionFunctionArgs,
@@ -56,13 +56,19 @@ export async function action({ request, params }: ActionFunctionArgs) {
   if (typeof question !== "string") {
     return json({ error: "Invalid question" });
   }
-  return await call(question, sessionId)
-    .then((answer) => {
-      return null;
-    })
-    .catch((error) => {
-      return { error: error };
-    });
+
+  let answer = null;
+  try {
+    answer = await call(question, sessionId);
+  } catch (error) {
+    return json({ error: error });
+  }
+  return {
+    airesponse: {
+      question: question,
+      message: answer.generation,
+    },
+  };
 }
 
 export const meta: MetaFunction = () => {
@@ -73,13 +79,28 @@ export const meta: MetaFunction = () => {
 };
 export default function chat() {
   const loaderData = useLoaderData<typeof loader>();
-  const [chatmesssages, setChatmesssages] = useState<any>();
+  const actionData = useActionData<typeof action>();
+  const [chatmesssages, setChatmesssages] = useState<any>(
+    loaderData.chatmesssages.map((message: any) => ({
+      input: message.input,
+      output: message.output,
+    }))
+  );
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
   const question = navigation.formData?.get("question");
   useEffect(() => {
-    setChatmesssages(loaderData.chatmesssages);
-  }, [loaderData.chatmesssages, chatmesssages, isSubmitting]);
+    if (actionData?.airesponse) {
+      console.log("actionData", actionData);
+      setChatmesssages((prev) => [
+        ...prev,
+        {
+          input: actionData.airesponse.question,
+          output: actionData.airesponse.message,
+        },
+      ]);
+    }
+  }, [actionData]);
   return (
     <HomeLayout
       userId={loaderData.userId}

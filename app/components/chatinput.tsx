@@ -39,6 +39,9 @@ export default function ChatInput() {
         <button
           ref={submitRef}
           className="absolute right-3 top-2 hover:bg-gray-300 dark:hover:bg-gray-500 p-2 rounded-lg "
+          disabled={isSubmitting}
+          type="submit"
+          aria-label="Submit"
         >
           <ArrowRight className="size-5" />
         </button>
