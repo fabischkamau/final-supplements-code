@@ -98,3 +98,15 @@ RETURN s.id AS sessionId, toString(HEAD(responses).createdAt) AS createdAt, HEAD
   );
   return res;
 };
+
+export async function chatMessages(sessionId: string) {
+  const graph = await initGraph();
+  const chatmesssages = await graph.query(
+    ` MATCH (s:Session {id: $sessionId})-[:HAS_RESPONSE]->(r:Response)
+    RETURN r.input AS input, r.output AS output
+    ORDER BY r.createdAt`,
+    { sessionId },
+    "READ"
+  );
+  return chatmesssages;
+}

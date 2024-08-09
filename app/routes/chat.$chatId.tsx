@@ -14,7 +14,11 @@ import {
 } from "@remix-run/node";
 import { call } from "~/genai/index.server";
 import { initGraph } from "~/genai/graph.server";
-import { getHistoryMessages, getUser } from "~/utils/history.server";
+import {
+  chatMessages,
+  getHistoryMessages,
+  getUser,
+} from "~/utils/history.server";
 import { getSession } from "~/utils/authsession.server";
 import { useEffect, useState } from "react";
 
@@ -33,14 +37,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   if (userId) {
     messageHistory = await getHistoryMessages(userId);
   }
-  const graph = await initGraph();
-  const chatmesssages = await graph.query(
-    ` MATCH (s:Session {id: $sessionId})-[:HAS_RESPONSE]->(r:Response)
-    RETURN r.input AS input, r.output AS output
-    ORDER BY r.createdAt`,
-    { sessionId },
-    "READ"
-  );
+  const chatmesssages = await chatMessages(sessionId);
   return { chatmesssages, userId, user, messageHistory };
 }
 
